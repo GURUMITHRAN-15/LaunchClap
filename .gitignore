@@ -1,0 +1,10 @@
+(
+echo __pycache__/
+echo *.py[cod]
+echo build/
+echo dist/
+echo backup_before_gui/
+echo .venv/
+echo venv/
+echo .env
+) > .gitignore
