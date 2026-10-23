@@ -1,50 +1,176 @@
-# ClapLaunch
+# 🎙️ LaunchClap
 
-A beginner-friendly Windows double-clap app launcher. Microphone audio is processed in memory on the local computer; the app does not record audio to disk or upload it.
+### Control your Windows workspace with a double clap.
 
-## Requirements
-- Windows 10/11
-- Python 3.11 or 3.12 (64-bit recommended)
-- A working microphone and permission for desktop apps to use it
+LaunchClap is a Windows desktop utility that listens for a double clap and launches your configured applications. It features a modern dark interface, neon-green styling, live audio visualization, and microphone-level monitoring.
 
-## Install and run
-1. Install Python from https://www.python.org/downloads/windows/ . During setup, enable **Add Python to PATH**.
-2. Open Command Prompt in this folder.
-3. Install dependencies:
+> **Privacy-first design:** Audio is processed locally in memory. LaunchClap does not intentionally record audio to files or upload audio to a server.
 
-   ```bat
-   py -m pip install -r requirements.txt
-   ```
+---
 
-4. Run:
+## ✨ Features
 
-   ```bat
-   py main.py
-   ```
+- 👏 **Double-clap detection** — trigger your configured workspace with two claps.
+- 🎨 **Modern dark GUI** — a dark interface with neon-green accents.
+- 📊 **Live waveform** — visualize microphone input in real time.
+- 🎚️ **Audio level meter** — monitor incoming microphone volume.
+- 🎯 **Automatic calibration** — estimate background noise before listening.
+- 🖥️ **Application launcher** — configure applications such as VS Code, Chrome, Windows Terminal, and Spotify.
+- ⚙️ **Configurable settings** — save application paths and detection sensitivity.
+- 🚀 **Windows startup option** — optionally launch the application when you sign in.
+- 🔒 **Local processing** — no cloud audio processing or account required.
 
-## First setup
-1. Use **Browse…** to select each app's `.exe` path. For Terminal, `wt.exe` may work as-is; if it doesn't, browse to Windows Terminal's executable or use `cmd.exe`.
-2. Click **Save settings**.
-3. Click **Test launch** to verify the chosen paths.
-4. Click **Start listening + calibrate**. Keep the room quiet for three seconds.
-5. After calibration, clap twice about 0.2–0.5 seconds apart.
-6. Enable **Run automatically when I sign in to Windows** and save settings to register startup for your Windows user. This is a per-user startup entry; administrator privileges are not required.
+## 🖼️ Screenshots
 
-## Common application paths
-- VS Code: `%LOCALAPPDATA%\Programs\Microsoft VS Code\Code.exe`
-- Chrome: `C:\Program Files\Google\Chrome\Application\chrome.exe` or `C:\Program Files (x86)\Google\Chrome\Application\chrome.exe`
-- Edge: `C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe`
-- Terminal: `wt.exe`
-- Spotify: `%APPDATA%\Spotify\Spotify.exe` (if installed as a classic desktop app)
+*Screenshots coming soon.*
 
-Paths differ by installation. The Browse button is the most reliable option.
+Add a screenshot of the LaunchClap interface here once you capture one:
 
-## Notes and safety
-- This is a prototype, not a perfect clap classifier. Loud clicks, door slams, and other sharp sounds may sometimes trigger it.
-- Calibration adapts the threshold to ambient volume; it does not train an AI model.
-- The detector has a short cooldown to prevent repeated launches.
-- It only launches configured app paths and does not use `shell=True`.
-- Audio is not intentionally saved or transmitted. The microphone remains active only while listening is enabled.
-- To stop the listener, click **Stop listening** or close the app.
-- To remove automatic startup, uncheck the startup option and click **Save settings**.
-- Settings are stored in `%APPDATA%\ClapLaunch\config.json`.
+```md
+![LaunchClap interface](docs/screenshots/launchclap.png)
+```
+
+## 🛠️ Built With
+
+- Python
+- PySide6 — desktop GUI
+- NumPy — audio signal calculations
+- SoundDevice — microphone input
+- Git and GitHub — version control and collaboration
+
+## 💻 Requirements
+
+- Windows 10 or Windows 11
+- Python 3.14, if running from source
+- A working microphone
+- Git, if cloning the repository
+- An internet connection for the initial dependency installation
+
+## 📥 Installation
+
+### Option 1: Run from source
+
+**1. Clone the repository**
+
+```bash
+git clone https://github.com/GURUMITHRAN-15/LaunchClap.git
+cd LaunchClap
+```
+
+**2. Install dependencies**
+
+```bash
+py -3.14 -m pip install -r requirements.txt
+```
+
+**3. Start LaunchClap**
+
+```bash
+py -3.14 main.py
+```
+
+If the `py -3.14` command is unavailable, install a compatible Python version and use its corresponding command.
+
+## 🎮 How to Use
+
+1. Open LaunchClap.
+2. Configure the executable paths for the applications you want to launch.
+3. Save your settings.
+4. Click **Start Listening + Calibrate**.
+5. Keep the room quiet while the microphone calibrates.
+6. Clap twice within the supported detection interval.
+7. LaunchClap attempts to open your configured applications.
+
+**Tip:** Adjust the sensitivity if background noise triggers detection or your claps aren't recognized. Microphone permissions and input-device settings can also affect detection.
+
+## ⚙️ Configuration
+
+LaunchClap stores its settings in:
+
+```text
+%APPDATA%\ClapLaunch\config.json
+```
+
+Configuration includes application paths, detection threshold, and the Windows startup preference.
+
+You can change application paths through the graphical interface instead of editing the configuration file manually.
+
+## 🔐 Privacy and Security
+
+LaunchClap is designed for local desktop use.
+
+- Audio samples are analyzed in memory for clap detection and visualization.
+- The application does not intentionally save microphone recordings or upload audio.
+- Application launching uses configured executable paths.
+- The optional Windows startup setting modifies the current user's Windows startup registry entry.
+
+**Important:** Only configure executable paths you trust. Review the source code before running software you build or download, and check microphone permissions in Windows.
+
+## 🧰 Troubleshooting
+
+### Microphone is not detected
+
+- Check Windows microphone permissions.
+- Confirm that the intended microphone is enabled.
+- Close other applications that may be interfering with microphone access.
+- Run LaunchClap from a terminal to view error messages.
+
+### Claps are not detected
+
+- Complete calibration in a quiet environment.
+- Adjust the detection sensitivity.
+- Move closer to the microphone or check its input level.
+- Reduce background noise and try again.
+
+### Application does not launch
+
+- Verify the configured executable path.
+- Confirm that the application exists at that location.
+- Use the **Test Launch** button to check the configured applications.
+
+### Dependencies fail to install
+
+Update pip and retry:
+
+```bash
+py -3.14 -m pip install --upgrade pip
+py -3.14 -m pip install -r requirements.txt
+```
+
+## 🗺️ Roadmap
+
+- [x] Double-clap detection
+- [x] Configurable application paths
+- [x] Automatic audio calibration
+- [x] Dark GUI with neon-green styling
+- [x] Live waveform and input meter
+- [ ] Add screenshots and a demonstration video
+- [ ] Improve automated tests
+- [ ] Publish a tested Windows executable release
+- [ ] Add more microphone and detection settings
+
+## 🤝 Contributing
+
+Contributions, bug reports, and feature suggestions are welcome.
+
+1. Fork the repository.
+2. Create a feature branch.
+3. Make and test your changes.
+4. Commit your work.
+5. Open a pull request describing the changes.
+
+Please include reproduction steps when reporting bugs.
+
+## 📄 License
+
+No license has been specified here yet. Until a license is added to the repository, do not assume that others have permission to redistribute or modify the project.
+
+## 👨‍💻 Author
+
+**Gurumithran**
+
+GitHub: [@GURUMITHRAN-15](https://github.com/GURUMITHRAN-15)
+
+---
+
+⭐ If you find LaunchClap useful, consider starring the repository!
